@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import '../styles/App.css'
 
 const App = () => {
-	const [form, setForm] = useState({ input1: '', input2: '' })
+	const [form, setForm] = useState({ name1: '', name2: '' })
 	const [outputStatus, setOutputStatus] = useState('')
 
-	const { input1, input2 } = form
+	const { name1, name2 } = form
 
 	const handleChange = (e) => {
 		const { name, value } = e.target
@@ -19,11 +19,11 @@ const App = () => {
 
 	const getResult = () => {
 		const mapp = new Map()
-		input1
+		name1
 			.split('')
 			.forEach((ch) => mapp.set(ch, mapp.has(ch) ? mapp.get(ch) + 1 : 1))
 
-		const countCommonChar = input2.split('').reduce((acc, ch) => {
+		const countCommonChar = name2.split('').reduce((acc, ch) => {
 			if (mapp.has(ch)) {
 				mapp.set(ch, mapp.get(ch) - 1)
 				if (mapp.get(ch) == 0) {
@@ -44,14 +44,14 @@ const App = () => {
 			'Enemy',
 		]
 
-		const result = input1.length + input2.length - 2 * countCommonChar
+		const result = name1.length + name2.length - 2 * countCommonChar
 
 		return outputArr[result % 6]
 	}
 
 	const handleClick = (e) => {
 		e.preventDefault()
-		if (!input1.trim() || !input2.trim()) {
+		if (!name1.trim() || !name2.trim()) {
 			setOutputStatus('Please Enter valid input')
 			return
 		}
@@ -61,7 +61,7 @@ const App = () => {
 	}
 
 	const handleReset = () => {
-        setForm({ input1: '', input2: '' })
+        setForm({ name1: '', name2: '' })
         setOutputStatus('')
 	}
 
@@ -69,16 +69,16 @@ const App = () => {
 		<div id='main'>
 			{/* Do not remove the main div */}
 			<input
-				name='input1'
-				value={input1}
+				name='name1'
+				value={name1}
 				onChange={handleChange}
 				type='text'
 				data-testid='input1'
 				placeholder='Enter first name'
 			/>
 			<input
-				name='input2'
-				value={input2}
+				name='name2'
+				value={name2}
 				onChange={handleChange}
 				type='text'
 				data-testid='input2'
